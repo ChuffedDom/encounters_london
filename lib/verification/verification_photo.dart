@@ -196,93 +196,99 @@ class _PhotoUploadState extends State<PhotoUpload> {
       appBar: AppBar(
         title: const Text("Encounters London"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(45.0),
-        child: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width > 400
-                ? 400
-                : MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height > 500
-                ? 500
-                : MediaQuery.of(context).size.height,
-            child: Consumer<VerificationData>(
-              builder: (context, verificationData, child) => Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  // Middle action area
-                  Expanded(
-                    flex: 6,
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: Container(
-                              child: Center(
-                                child: verificationData.imageUploaded
-                                    ? SizedBox.shrink()
-                                    : CircularProgressIndicator(),
-                              ),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.fitHeight,
-                                  colorFilter: ColorFilter.mode(
-                                    Colors.black.withOpacity(
-                                        verificationData.imageUploaded
-                                            ? 1
-                                            : 0.5),
-                                    BlendMode.dstATop,
+      body: Consumer<VerificationData>(
+        builder: (context, verificationData, child) => Padding(
+          padding: const EdgeInsets.all(45.0),
+          child: Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width > 400
+                  ? 400
+                  : MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height > 500
+                  ? 500
+                  : MediaQuery.of(context).size.height,
+              child: Consumer<VerificationData>(
+                builder: (context, verificationData, child) => Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                    // Middle action area
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: Container(
+                                child: Center(
+                                  child: verificationData.imageUploadStatus ==
+                                          "uploaded"
+                                      ? SizedBox.shrink()
+                                      : CircularProgressIndicator(),
+                                ),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitHeight,
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.black.withOpacity(
+                                          verificationData.imageUploadStatus ==
+                                                  "uploaded"
+                                              ? 1
+                                              : 0.5),
+                                      BlendMode.dstATop,
+                                    ),
+                                    image:
+                                        MemoryImage(verificationData.webImage),
                                   ),
-                                  image: MemoryImage(verificationData.webImage),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(verificationData.imageUploadStatus),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(verificationData.imageUploadStatus),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // Bottom navigation area
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              verificationData.updateWebImage = Uint8List(8);
-                              verificationData.updateImageUploaded = false;
-                              Navigator.pop(context);
-                            },
-                            child: Text("back"),
-                          ),
-                          ElevatedButton(
-                            onPressed: verificationData.imageUploaded
-                                ? () {
-                                    Navigator.pushNamed(
-                                        context, '/description');
-                                  }
-                                : null,
-                            child: Text("Next"),
-                          ),
-                        ],
+                    // Bottom navigation area
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                verificationData.updateWebImage = Uint8List(8);
+                                verificationData.updateImageUploaded = false;
+                                Navigator.pop(context);
+                              },
+                              child: Text("back"),
+                            ),
+                            ElevatedButton(
+                              onPressed: verificationData.imageUploadStatus ==
+                                      "uploaded"
+                                  ? () {
+                                      Navigator.pushNamed(
+                                          context, '/description');
+                                    }
+                                  : null,
+                              child: Text("Next"),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

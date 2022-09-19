@@ -11,7 +11,7 @@ class VerificationData extends ChangeNotifier {
   bool _verify_by_photo = true;
   Uint8List _webImage = Uint8List(8);
   bool _imageUploaded = false;
-  String _imageUploadStatus = "no image";
+  String _imageUploadStatus = "something went wrong please try again";
   String _audio_file = "";
   String _redditUsername = "";
   String _description = "";
