@@ -10,6 +10,7 @@ import 'verification/reddit_username.dart';
 import 'verification/verification_type.dart';
 import 'verification/verification_photo.dart';
 import 'verification/verification_completion.dart';
+import 'homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +33,9 @@ class MyApp extends StatelessWidget {
           fontFamily: '--apple-system',
           primarySwatch: Colors.red,
         ),
-        initialRoute: '/reddit-username',
+        initialRoute: '/',
         routes: {
+          '/': (context) => Homepage(),
           '/reddit-username': (context) => const EnterUsername(),
           '/verification-type': (context) => TypeSelector(),
           '/photo-select': (context) => PhotoSelect(),

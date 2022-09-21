@@ -11,6 +11,7 @@ class EnterUsername extends StatefulWidget {
 
 class _EnterUsernameState extends State<EnterUsername> {
   late TextEditingController _usernameController;
+  String _versionNumber = "";
 
   @override
   void initState() {
@@ -45,6 +46,21 @@ class _EnterUsernameState extends State<EnterUsername> {
                   SingleChildScrollView(
                 child: Column(
                   children: [
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                          ),
+                          onPressed: () => setState(() {
+                            _versionNumber = "v0.11";
+                          }),
+                          child: Text(""),
+                        ),
+                        Text(_versionNumber),
+                      ],
+                    ),
                     Text(
                       "Verification for LR4R",
                       style: Theme.of(context).textTheme.titleLarge,

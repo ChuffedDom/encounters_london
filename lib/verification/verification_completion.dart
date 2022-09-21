@@ -38,7 +38,7 @@ class _DescriptionState extends State<Description> {
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
-      title: const Text("Encounter London"),
+      title: const Text("Encounters London"),
     );
     db = FirebaseFirestore.instance;
 
