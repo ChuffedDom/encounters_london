@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:encounters_london/models.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart';
 
 class Description extends StatefulWidget {
   const Description({Key? key}) : super(key: key);
@@ -163,8 +166,35 @@ class _DescriptionState extends State<Description> {
   }
 }
 
-class Completed extends StatelessWidget {
+class Completed extends StatefulWidget {
   const Completed({Key? key}) : super(key: key);
+
+  @override
+  State<Completed> createState() => _CompletedState();
+}
+
+class _CompletedState extends State<Completed> {
+  Future<void> sendNotification() async {
+    final pushover_user = "uhpBm9iM6FNdok32ywzhJR3BWjMDuT";
+    final pushover_token = "ajcnxxkcmz5qnmq6d3qncm73774f58";
+    final url = Uri.parse('https://api.pushover.net/1/messages.json');
+    var headers = {'Content-Type': 'application/json'};
+    final data = {
+      "token": "$pushover_token",
+      "user": "$pushover_user",
+      "message": "New Verification to check",
+      "sound": "gamelan"
+    };
+
+    final json = jsonEncode(data);
+    final response = await post(url, headers: headers, body: json);
+  }
+
+  @override
+  void initState() {
+    sendNotification();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,12 +218,23 @@ class Completed extends StatelessWidget {
                   "Verification Completed",
                   style: Theme.of(context).textTheme.headline5,
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                     "Thanks for verifying, it really helps the community succeed."),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                     "A moderator will be in touch to confirm that your verification was successful."),
+                const SizedBox(height: 30),
+                const Text("We are building something new for meets in London"),
+                const SizedBox(height: 20),
+                const Text("Find out more"),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                  child: const Text("CLICK HERE"),
+                )
               ],
             ),
           ),

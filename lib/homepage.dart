@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -15,6 +15,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final _emailController = TextEditingController();
   var _buttonIndicator = Text("SUBSCRIBE");
+  late String _email = "";
+  late bool _emailSent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,32 +93,34 @@ class _HomepageState extends State<Homepage> {
                                   decoration: const InputDecoration(
                                     label: Text("email"),
                                   ),
+                                  onChanged: (value) => setState(() {
+                                    _email = value;
+                                  }),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: ElevatedButton(
-                                  onPressed: () async {
-                                    print("start request");
-                                    var url = Uri.https(
-                                        'chuffeddom:mindthegapHgotn44B\$newton@marketing.chuffed.app',
-                                        'api/contacts/new');
-                                    print("url set: $url");
-                                    Map<String, String> headers = {
-                                      "Content-Type": "application/json"
-                                    };
-                                    print("headers set");
-                                    var response = await http.post(url,
-                                        body: jsonEncode({
-                                          "email": "dev01@test.com",
-                                          "tags": "el-landing",
-                                        }),
-                                        headers: headers);
-                                    print("post request made");
-                                    print(
-                                        'Response status: ${response.statusCode}');
-                                    print('Response body: ${response.body}');
-                                  },
+                                  onPressed: _emailSent
+                                      ? null
+                                      : () async {
+                                          final url = Uri.parse(
+                                              'https://hooks.zapier.com/hooks/catch/13430230/bc1jqfv/');
+                                          final headers = {
+                                            "Content-type": "text/plain",
+                                          };
+                                          final json = '{"email": "$_email"}';
+                                          final response = await post(url,
+                                              headers: headers, body: json);
+                                          final status = response.statusCode;
+                                          if (response.statusCode == 200) {
+                                            setState(() {
+                                              _buttonIndicator =
+                                                  const Text("Thank you!");
+                                              _emailSent = true;
+                                            });
+                                          }
+                                        },
                                   child: _buttonIndicator,
                                 ),
                               ),
