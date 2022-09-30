@@ -54,7 +54,7 @@ class _EnterUsernameState extends State<EnterUsername> {
                             shadowColor: Colors.transparent,
                           ),
                           onPressed: () => setState(() {
-                            _versionNumber = "v0.141";
+                            _versionNumber = "v0.142";
                           }),
                           child: Text(""),
                         ),

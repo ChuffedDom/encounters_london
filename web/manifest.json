@@ -1,11 +1,11 @@
 {
-    "name": "encounters_london",
-    "short_name": "encounters_london",
+    "name": "Encounters London",
+    "short_name": "Encounters London",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A place to meet people in London",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

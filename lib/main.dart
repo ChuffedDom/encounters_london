@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => Homepage(),
-          '/reddit-username': (context) => const EnterUsername(),
+          '/reddit-verification': (context) => const EnterUsername(),
           '/verification-type': (context) => TypeSelector(),
           '/photo-select': (context) => PhotoSelect(),
           '/photo-upload': (context) => PhotoUpload(),
