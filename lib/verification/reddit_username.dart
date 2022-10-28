@@ -62,6 +62,13 @@ class _EnterUsernameState extends State<EnterUsername> {
                       ],
                     ),
                     Text(
+                      "You will need a pen and a piece of paper",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
                       "Verification for LR4R",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
