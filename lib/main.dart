@@ -11,6 +11,7 @@ import 'verification/verification_type.dart';
 import 'verification/verification_photo.dart';
 import 'verification/verification_completion.dart';
 import 'homepage.dart';
+import 'login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/audio-upload': (context) => AudioUpload(),
           '/description': (context) => Description(),
           '/completed': (context) => Completed(),
+          '/login': (context) => Login(),
         },
       ),
     );
